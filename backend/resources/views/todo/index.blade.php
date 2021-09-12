@@ -12,7 +12,7 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <a href="{{ url('todos/create') }}" class="btn btn-success mb-3">登録</a>
+                <a href="{{ url('todo/create') }}" class="btn btn-success mb-3">登録</a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -28,10 +28,10 @@
                         <tr>
                             <td>{{ $todo->id }}</td>
                             <td>{{ $todo->title }}</td>
-                            <td><a href="{{ url('todos/' . $todo->id) }}" class="btn btn-info">詳細</a></td>
-                            <td><a href="{{ url('todos/' . $todo->id . '/edit') }}" class="btn btn-primary">編集</a></td>
+                            <td><a href="{{ url('todo/' . $todo->id) }}" class="btn btn-info">詳細</a></td>
+                            <td><a href="{{ url('todo/' . $todo->id . '/edit') }}" class="btn btn-primary">編集</a></td>
                             <td>
-                                <form method="POST" action="/todos/{{ $todo->id }}">
+                                <form method="POST" action="/todo/{{ $todo->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger" type="submit">削除</button>

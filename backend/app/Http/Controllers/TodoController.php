@@ -56,7 +56,9 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        //
+        $todo = Todo::find($id);
+
+        return view('todo.show', compact('todo'));
     }
 
     /**
@@ -67,7 +69,9 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todo = Todo::find($id);
+
+        return view('todo.edit', compact('todo'));
     }
 
     /**
@@ -79,7 +83,15 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $todo = Todo::find($id);
+
+        $todo->title = $request->input('title');
+        $todo->save();
+    
+        return redirect('todo')->with(
+            'status',
+            $todo->title . 'を更新しました!'
+        );
     }
 
     /**
@@ -90,6 +102,12 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $todo = Todo::find($id);
+        $todo->delete();
+    
+        return redirect('todo')->with(
+            'status',
+            $todo->title . 'を削除しました!'
+        );
     }
 }
