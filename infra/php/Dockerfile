@@ -6,6 +6,9 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 \
 
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+
 RUN apt-get update && \
   apt-get -y install git unzip libzip-dev libicu-dev libonig-dev && \
   apt-get clean && \

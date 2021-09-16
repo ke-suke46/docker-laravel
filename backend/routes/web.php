@@ -25,3 +25,11 @@ Route::get('todo/{id}/edit', [TodoController::class,'edit'])->name('todo.edit');
 Route::put('todo/{id}', [TodoController::class,'update'])->name('todo.update');
 Route::delete('todo/{id}', [TodoController::class,'destroy'])->name('todo.destroy');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
