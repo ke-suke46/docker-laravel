@@ -3,8 +3,17 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                一覧画面
+            <div class="card-header container-fluid">
+                <div class="row">
+                <div class="col-sm">一覧画面</div>
+                <form method="get" action="{{ route('todo.index') }}">
+                <div class="col-sc d-flex flex-row-reverse bd-highlight">
+                    <div><input name="keyword" class="border border-gray-500 py-2" placeholder="キーワードを入力"></div>
+                    <div><button class="ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">検索する</button></div>
+                </div>
+                </form>
+                </div>
+
             </div>
             <div class="card-body">
                 @if (session('status'))
