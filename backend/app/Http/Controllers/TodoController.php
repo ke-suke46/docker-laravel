@@ -22,10 +22,17 @@ class TodoController extends Controller
     {
         $user = User::find(Auth::id());
         $todos = $user->todo;
+        $cond_title = $request->keyword;
+       if ($cond_title != '') {
+         $todos = Todo::where('title','like','%'.$cond_title.'%')->orderBy('created_at','desc')->paginate(5);
+       }else {
+         $todos = Todo::orderBy('created_at','desc')->paginate(5);
+       }
         // dd($todos);
-        // if($request){
+        // if($request != ''){
         // $todos = Todo::searchKeyword($request->keyword);
         // }
+        
         return view('todo.index', compact('todos'));
     }
 
