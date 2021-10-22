@@ -4,19 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class TodoController extends Controller
-{
+    {
+    public function __construct()
+    {
+        $this->middleware('auth:users');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       
-        $todos = Todo::all();
-
+        $user = User::find(Auth::id());
+        $todos = $user->todo;
+        $cond_title = $request->keyword;
+       if ($cond_title != '') {
+         $todos = Todo::where('title','like','%'.$cond_title.'%')->orderBy('created_at','desc')->paginate(5);
+       }else {
+         $todos = Todo::orderBy('created_at','desc')->paginate(5);
+       }
+        // dd($todos);
+        // if($request != ''){
+        // $todos = Todo::searchKeyword($request->keyword);
+        // }
+        
         return view('todo.index', compact('todos'));
     }
 
@@ -39,6 +55,7 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $todo = new Todo();
+        $todo->user_id = $request->user()->id;
         $todo->title = $request->input('title');
         $todo->save();
     
@@ -110,4 +127,5 @@ class TodoController extends Controller
             $todo->title . 'を削除しました!'
         );
     }
+    
 }
